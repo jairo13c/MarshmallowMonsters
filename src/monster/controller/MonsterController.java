@@ -26,13 +26,13 @@ public class MonsterController
 		System.out.println(currentMonster);
 		
 		
-	System.out.println("howw manyrms are you interested in eating?, I have " + currentMonster.getArmCount());
+	System.out.println("how many arms are you interested in eating?, I have " + currentMonster.getArmCount());
 	//consumed = myScanner.nextInt();
 	int armEat = myScanner.nextInt();
 		
 	if (armEat == 0)
 	{
-		System.out.println("not hngray? oh so sad...");
+		System.out.println("not hugray? oh so sad...");
 	}
 	else if(armEat < 0)
 	{
@@ -40,14 +40,21 @@ public class MonsterController
 	}
 	else if(armEat - currentMonster.getArmCount() > 0)
 	{
-		System.out.println("YPU ARE NOT allowed to eat more than exist on me :/ :x");
+		System.out.println("You are not allowed to eat more than exist on me :/ :x");
 	}
 	else
 	{
 		currentMonster.setArmCount(currentMonster.getArmCount() - armEat);
 		System.out.println("ok,now i have this many arms " + currentMonster.getArmCount());
+		
 	}
+	System.out.println("how many tentacles do you want to eat? i have " + currentMonster.getTentacleAmount());
+	double food = myScanner.nextDouble();
 	
+	if(food == currentMonster.getTentacleAmount())
+	{ 
+		System.out.println("more likely");
+	}
 		myScanner.close();
 	}
 }
