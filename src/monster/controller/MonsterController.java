@@ -3,25 +3,35 @@ package monster.controller;
 import monster.model.MarshmallowMonster;
 import java.util.Scanner;
 import monster.view.MonsterDisplay;
+import java.util.List;
+import java.util.ArrayList;
 
-public class MonsterController {
-
+public class MonsterController 
+{
 	private MonsterDisplay popup;
-
+	private List<MarshmallowMonster> monsterList;
 	public MonsterController()
 	{
+		
+		
 		popup = new MonsterDisplay();
+		monsterList = new ArrayList<MarshmallowMonster>();
 	}
 
 	public void start()
 	{
 		int count = 0;
-		while(count< 10)
+		//while(count< 10)
 	    {
-			popup.displayText("Am i not the coolest??");
-			count+=2;	
+			//popup.displayText("Am i not the coolest??");
+			//count+=2;	
 	    }
 
+	    //for(int loop = 0;loop < 10; loop += 1)
+	    {
+	    //	popup.displayText("this is loop# " + (loop + 1) + " of ten");
+	    }
+	    
 		MarshmallowMonster basic = new MarshmallowMonster();
 		//System.out.println(basic);
 		popup.displayText(basic.toString());
@@ -34,9 +44,32 @@ public class MonsterController {
 		//System.out.println(fred);
 		popup.displayText(fred.toString());
 		
-		interactWithMonster(fred);
+		monsterList.add(basic);
+		monsterList.add(fred);
+		useList();
+		
+		//interactWithMonster(fred);
+
 	}
 	
+	private void useList()
+	{
+		for(int index = 0; index < monsterList.size(); index++)
+	
+		{
+		MarshmallowMonster currentMonster = monsterList.get(index);
+		popup.displayText(currentMonster.getName());
+		String updateName = popup.getResponse("What should my new name be?");
+		currentMonster.setName(updateName);
+		popup.displayText("my new ame is "+ currentMonster.getName());
+		}
+		
+		for (MarshmallowMonster current : monsterList)
+		{
+			popup.displayText("my name is " + current.getName());
+		}
+	}
+		
 	private void interactWithMonster(MarshmallowMonster currentMonster)
 	{
 		Scanner myScanner = new Scanner(System.in);
@@ -44,16 +77,33 @@ public class MonsterController {
 		int consumed = 0;
 		String response = popup.getResponse(currentMonster.getName() + "wants to know how many eyes you want to eat , place type how many");
 		
-		if(isValidInteger(response))
+		while(!isValidInteger(response))
 		{
-			consumed = Integer.parseInt(response);
+			popup.displayText("grrr type in a better answer nex time");
+			response = popup.getResponse("type in a integer value!");
 		}
+		
+		
+		
+		//if(isValidInteger(response))
+		//{
+			consumed = Integer.parseInt(response);
+		//}
 		//int consumed = myScanner.nextInt();
 		currentMonster.setArmCount(currentMonster.getEyeCount() - consumed);
 		System.out.println(currentMonster);
 		System.out.println("how many arms are you interested in eating?, I have " + currentMonster.getArmCount());
 		response = popup.getResponse("");
 		//consumed = myScanner.nextInt();
+		while(!isValidInteger(response))
+		{
+			response = popup.getResponse("No type in a integer value aka 0... 2Billon");
+		}
+		while(isValidInteger(response))
+		{
+			popup.displayText("type good response");
+			response = popup.getResponse("type in a integer value 12222");
+		}
 		int armEat = myScanner.nextInt();
 		
 		if (armEat == 0)
@@ -79,7 +129,7 @@ public class MonsterController {
 		String tentacleResponse = popup.getResponse("");
 		if(isValidDouble(tentacleResponse))
 		{
-			food =Double.parseDouble(tentacleResponse);
+			food = Double.parseDouble(tentacleResponse);
 		}
 	
 		if(food == currentMonster.getTentacleAmount())
